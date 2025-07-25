@@ -2,7 +2,7 @@
 
 ## 📖 Project Introduction
 
-**Podcast Explorer** is a cutting-edge, full-featured podcast streaming application built with the latest React 19 ecosystem. This project represents a comprehensive solution for podcast discovery, management, and streaming, designed with modern web development practices and user experience principles at its core.
+My **Podcast Explorer** is a cutting-edge, full-featured podcast streaming application built with the latest React 19 ecosystem. This project represents a comprehensive solution for podcast discovery, management, and streaming, designed with modern web development practices and user experience principles at its core. To enjoy this experience yourself, you can further explore this website **BY CLICKING ON THIS LINK <https://estdem-25114-fto2502-a2-esteban-d-e.vercel.app>**.
 
 ### 🎯 Project Vision
 
