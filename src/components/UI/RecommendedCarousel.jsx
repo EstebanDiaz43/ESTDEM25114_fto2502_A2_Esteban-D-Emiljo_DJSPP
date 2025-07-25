@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RecommendedCarousel.module.css";
+import GenreTags from "./GenreTags";
 
 /**
  * Recommended Podcasts Carousel Component
@@ -157,6 +158,11 @@ export default function RecommendedCarousel({ podcasts }) {
                 <p className={styles.seasonsCount}>
                   {podcast.seasons} season{podcast.seasons !== 1 ? "s" : ""}
                 </p>
+                {podcast.genres && podcast.genres.length > 0 && (
+                  <div className={styles.genreContainer}>
+                    <GenreTags genres={podcast.genres} />
+                  </div>
+                )}
               </div>
             </div>
           ))}

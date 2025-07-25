@@ -130,8 +130,28 @@
 .seasonsCount {
   color: #718096;
   font-size: 0.9rem;
-  margin: 0;
+  margin: 0 0 0.75rem 0;
   font-weight: 500;
+}
+
+.genreContainer {
+  margin-top: 0.75rem;
+}
+
+.genreContainer .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.genreContainer .tag {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
 }
 
 .navButton {
