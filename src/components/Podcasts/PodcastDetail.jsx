@@ -3,30 +3,29 @@ import { useNavigate } from "react-router-dom"; // ← add this
 import styles from "./PodcastDetail.module.css";
 import { formatDate } from "../../utils/formatDate";
 import GenreTags from "../UI/GenreTags";
-import { AudioPlayerModal, PlayEpisodeButton } from "../UI";
+import { PlayEpisodeButton } from "../UI";
+import { useAudioPlayer } from "../../context/AudioPlayerContext";
 
 export default function PodcastDetail({ podcast, genres }) {
   const [selectedSeasonIndex, setSelectedSeasonIndex] = useState(0);
-  const [currentEpisode, setCurrentEpisode] = useState(null);
-  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const season = podcast.seasons[selectedSeasonIndex];
   const navigate = useNavigate(); // ← hook for navigation
+  const { playEpisode } = useAudioPlayer(); // ← hook for global audio player
 
   // Function to handle playing an episode
   const handlePlayEpisode = (episode, episodeIndex) => {
-    setCurrentEpisode({
+    const episodeWithMetadata = {
       ...episode,
       episodeNumber: episodeIndex + 1,
-      seasonTitle: season.title,
-      seasonNumber: selectedSeasonIndex + 1,
-    });
-    setIsPlayerOpen(true);
-  };
-
-  // Function to close the audio player
-  const handleClosePlayer = () => {
-    setIsPlayerOpen(false);
-    setCurrentEpisode(null);
+      seasonNumber: selectedSeasonIndex + 1
+    };
+    
+    playEpisode(
+      episodeWithMetadata,
+      podcast.title,
+      `Season ${selectedSeasonIndex + 1}: ${season.title}`,
+      season.image
+    );
   };
 
   return (
@@ -123,16 +122,6 @@ export default function PodcastDetail({ podcast, genres }) {
           ))}
         </div>
       </div>
-
-      {/* Audio Player Modal */}
-      <AudioPlayerModal
-        episode={currentEpisode}
-        podcastTitle={podcast.title}
-        seasonTitle={currentEpisode?.seasonTitle}
-        episodeImage={season.image}
-        isOpen={isPlayerOpen}
-        onClose={handleClosePlayer}
-      />
     </div>
   );
 }
