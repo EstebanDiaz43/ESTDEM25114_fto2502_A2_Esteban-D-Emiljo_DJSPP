@@ -2,25 +2,34 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
+  background: var(--background-color, #f9f9f9);
+  min-height: 100vh;
+  transition: background-color var(--transition-speed, 0.3s) ease;
 }
 
 strong {
   font-size: 0.875rem;
+  color: var(--text-color, #1a202c);
 }
 
 .header {
   display: flex;
   gap: 2rem;
-  background: white;
+  background: var(--surface-color, white);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.05));
   margin-bottom: 2rem;
+  border: 1px solid var(--border-color, transparent);
+  transition: background-color var(--transition-speed, 0.3s) ease,
+    box-shadow var(--transition-speed, 0.3s) ease,
+    border-color var(--transition-speed, 0.3s) ease;
 }
+
 .backButton {
   background: none;
   border: none;
-  color: #333;
+  color: var(--text-color, #333);
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 1rem;
@@ -31,7 +40,7 @@ strong {
 }
 
 .backButton:hover {
-  color: #0070f3;
+  color: var(--accent-color, #0070f3);
 }
 
 .cover {
@@ -46,11 +55,14 @@ strong {
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-top: 0px;
+  color: var(--text-color, #1a202c);
+  transition: color var(--transition-speed, 0.3s) ease;
 }
 
 .description {
-  color: #444;
+  color: var(--text-secondary, #444);
   margin-bottom: 1rem;
+  transition: color var(--transition-speed, 0.3s) ease;
 }
 
 .genres {
@@ -61,16 +73,20 @@ strong {
 }
 
 .genreBadge {
-  background-color: #e5e7eb;
+  background-color: var(--border-color, #e5e7eb);
+  color: var(--text-color, #1a202c);
   padding: 0.3rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.85rem;
+  transition: background-color var(--transition-speed, 0.3s) ease,
+    color var(--transition-speed, 0.3s) ease;
 }
 
 .metaInfo p {
   font-size: 0.875rem;
-  color: #555;
+  color: var(--text-secondary, #555);
   margin: 0.25rem 0;
+  transition: color var(--transition-speed, 0.3s) ease;
 }
 
 .seasonInfo {
@@ -86,10 +102,14 @@ strong {
 }
 
 .seasonDetails {
-  background: white;
+  background: var(--card-bg, white);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--card-shadow, 0 2px 8px rgba(0, 0, 0, 0.05));
+  border: 1px solid var(--card-border, transparent);
+  transition: background var(--transition-speed, 0.3s) ease,
+    box-shadow var(--transition-speed, 0.3s) ease,
+    border-color var(--transition-speed, 0.3s) ease;
 }
 
 .seasonIntro {
@@ -110,10 +130,15 @@ strong {
 .dropdown {
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border, #ccc);
+  background: var(--input-bg, white);
+  color: var(--text-color, #333);
   min-width: 140px;
   height: 40px;
   order: 2;
+  transition: border-color var(--transition-speed, 0.3s) ease,
+    background var(--transition-speed, 0.3s) ease,
+    color var(--transition-speed, 0.3s) ease;
 }
 
 .seasonCover,
@@ -130,9 +155,10 @@ strong {
 }
 
 .releaseInfo {
-  color: #777;
+  color: var(--text-secondary, #777);
   font-size: 0.875rem;
   margin-top: 0.5rem;
+  transition: color var(--transition-speed, 0.3s) ease;
 }
 
 .episodeList {
@@ -144,19 +170,20 @@ strong {
 .episodeCard {
   display: flex;
   align-items: center;
-  background: #f9fafb;
+  background: var(--card-bg, #f9fafb);
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--card-border, #e5e7eb);
   border-radius: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease;
   gap: 1rem;
 }
 
 .episodeCard:hover {
   transform: translateY(-4px);
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: #d1d5db;
+  background: var(--card-hover-bg, #ffffff);
+  box-shadow: var(--card-hover-shadow, 0 4px 12px rgba(0, 0, 0, 0.08));
+  border-color: var(--card-hover-border, #d1d5db);
 }
 
 .episodeInfo {
@@ -178,8 +205,9 @@ strong {
 }
 
 .episodeDesc {
-  color: #555;
+  color: var(--text-secondary, #555);
   font-size: 0.875rem;
+  transition: color var(--transition-speed, 0.3s) ease;
 }
 
 @media (max-width: 600px) {
