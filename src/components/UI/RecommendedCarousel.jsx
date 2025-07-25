@@ -26,7 +26,10 @@ export default function RecommendedCarousel({ podcasts }) {
       const shuffled = [...podcasts]
         .sort(() => 0.5 - Math.random())
         .slice(0, Math.max(9, Math.min(15, podcasts.length)));
-      setRecommendedPodcasts(shuffled);
+
+      // Create multiple copies for infinite loop effect
+      const loopedPodcasts = [...shuffled, ...shuffled, ...shuffled];
+      setRecommendedPodcasts(loopedPodcasts);
     }
   }, [podcasts]);
 
@@ -35,41 +38,73 @@ export default function RecommendedCarousel({ podcasts }) {
     navigate(`/show/${podcast.id}`, { state: { genres: podcast.genres } });
   };
 
-  // Handle scroll navigation
+  // Handle scroll navigation with infinite loop
   const scroll = (direction) => {
     const container = carouselRef.current;
     if (!container) return;
 
     const scrollAmount = 320; // Width of one card plus gap
-    const newScrollLeft =
-      direction === "left"
-        ? container.scrollLeft - scrollAmount
-        : container.scrollLeft + scrollAmount;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-    container.scrollTo({
-      left: newScrollLeft,
-      behavior: "smooth",
-    });
+    if (direction === "left") {
+      if (container.scrollLeft <= 0) {
+        // Jump to the end when at the beginning
+        container.scrollLeft = maxScrollLeft;
+      } else {
+        container.scrollTo({
+          left: container.scrollLeft - scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      if (container.scrollLeft >= maxScrollLeft) {
+        // Jump to the beginning when at the end
+        container.scrollLeft = 0;
+      } else {
+        container.scrollTo({
+          left: container.scrollLeft + scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    }
   };
 
-  // Update scroll button states
+  // Update scroll button states - always enabled for infinite loop
   const updateScrollButtons = () => {
-    const container = carouselRef.current;
-    if (!container) return;
-
-    setCanScrollLeft(container.scrollLeft > 0);
-    setCanScrollRight(
-      container.scrollLeft < container.scrollWidth - container.clientWidth
-    );
+    // For infinite loop, buttons are always enabled
+    setCanScrollLeft(true);
+    setCanScrollRight(true);
   };
 
-  // Listen for scroll events
+  // Listen for scroll events and handle infinite loop positioning
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const handleScroll = () => updateScrollButtons();
+    const handleScroll = () => {
+      updateScrollButtons();
+
+      // Handle infinite loop positioning
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const oneThirdPoint = container.scrollWidth / 3;
+
+      // If we're near the end of the first set, jump to the second set
+      if (container.scrollLeft >= oneThirdPoint * 2) {
+        container.scrollLeft = container.scrollLeft - oneThirdPoint;
+      }
+      // If we're near the beginning of the last set, jump to the middle set
+      else if (container.scrollLeft <= 0) {
+        container.scrollLeft = oneThirdPoint;
+      }
+    };
+
     container.addEventListener("scroll", handleScroll);
+
+    // Initial positioning - start at the middle set
+    if (recommendedPodcasts.length > 0) {
+      const oneThirdPoint = container.scrollWidth / 3;
+      container.scrollLeft = oneThirdPoint;
+    }
 
     // Initial check
     updateScrollButtons();
@@ -93,7 +128,7 @@ export default function RecommendedCarousel({ podcasts }) {
         <button
           className={`${styles.navButton} ${styles.leftButton}`}
           onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
+          disabled={false}
           aria-label="Scroll left"
         >
           &#8249;
@@ -101,9 +136,9 @@ export default function RecommendedCarousel({ podcasts }) {
 
         {/* Carousel */}
         <div className={styles.carousel} ref={carouselRef}>
-          {recommendedPodcasts.map((podcast) => (
+          {recommendedPodcasts.map((podcast, index) => (
             <div
-              key={podcast.id}
+              key={`${podcast.id}-${index}`}
               className={styles.carouselCard}
               onClick={() => handlePodcastClick(podcast)}
             >
@@ -131,7 +166,7 @@ export default function RecommendedCarousel({ podcasts }) {
         <button
           className={`${styles.navButton} ${styles.rightButton}`}
           onClick={() => scroll("right")}
-          disabled={!canScrollRight}
+          disabled={false}
           aria-label="Scroll right"
         >
           &#8250;

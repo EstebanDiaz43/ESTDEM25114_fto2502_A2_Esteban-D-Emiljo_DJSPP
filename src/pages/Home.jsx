@@ -6,6 +6,7 @@ import {
   Pagination,
   Loading,
   Error,
+  RecommendedCarousel,
 } from "../components";
 import styles from "./Home.module.css";
 import { genres } from "../data";
@@ -30,6 +31,11 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      {/* Recommended Podcasts Carousel */}
+      {!loading && !error && podcasts.length > 0 && (
+        <RecommendedCarousel podcasts={podcasts} />
+      )}
+
       <section className={styles.controls}>
         <SearchBar />
         <GenreFilter genres={genres} />
