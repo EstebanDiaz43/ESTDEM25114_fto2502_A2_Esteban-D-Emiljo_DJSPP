@@ -14,12 +14,16 @@ export default function PodcastDetail({ podcast, genres }) {
 
   // Function to handle playing an episode
   const handlePlayEpisode = (episode, episodeIndex) => {
+    console.log("handlePlayEpisode called with episode:", episode);
+
     const episodeWithMetadata = {
       ...episode,
       episodeNumber: episodeIndex + 1,
-      seasonNumber: selectedSeasonIndex + 1
+      seasonNumber: selectedSeasonIndex + 1,
     };
-    
+
+    console.log("About to call playEpisode with:", episodeWithMetadata);
+
     playEpisode(
       episodeWithMetadata,
       podcast.title,

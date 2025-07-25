@@ -92,6 +92,15 @@ export default function AudioPlayerModal({
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  // Debug logging
+  console.log("AudioPlayerModal props:", {
+    isOpen,
+    episode: episode ? "exists" : "null",
+    episodeFile: episode?.file,
+    podcastTitle,
+    seasonTitle,
+  });
+
   if (!isOpen || !episode) return null;
 
   return (

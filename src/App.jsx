@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/UI/Header";
 import Home from "./pages/Home";
 import ShowDetail from "./pages/ShowDetail";
-import Favorites from "./pages/Favorites";
 import { PodcastProvider } from "./context/PodcastContext";
 import { AudioPlayerProvider } from "./context/AudioPlayerContext";
 import { GlobalAudioPlayer } from "./components";
@@ -29,25 +28,11 @@ export default function App() {
         <p>efubefuibeufbuifbeuifbeuib</p>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/favorites" element={<Favorites />} />
+
           <Route path={`/show/:id`} element={<ShowDetail />} />
         </Routes>
       </PodcastProvider>
       <GlobalAudioPlayer />
     </AudioPlayerProvider>
-  );
-}
-export default function App() {
-  return (
-    <>
-      <Header />
-      <PodcastProvider>
-        <p>efubefuibeufbuifbeuifbeuib</p>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path={`/show/:id`} element={<ShowDetail />} />
-        </Routes>
-      </PodcastProvider>
-    </>
   );
 }

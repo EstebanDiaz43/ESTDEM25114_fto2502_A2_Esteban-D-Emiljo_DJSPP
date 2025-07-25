@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 /**
  * Audio Player Context
- * 
+ *
  * Provides global state management for the audio player modal.
  * This allows the audio player to persist across page navigation.
  */
@@ -15,16 +15,18 @@ const AudioPlayerContext = createContext();
 export const useAudioPlayer = () => {
   const context = useContext(AudioPlayerContext);
   if (!context) {
-    throw new Error('useAudioPlayer must be used within an AudioPlayerProvider');
+    throw new Error(
+      "useAudioPlayer must be used within an AudioPlayerProvider"
+    );
   }
   return context;
 };
 
 /**
  * Audio Player Provider Component
- * 
+ *
  * Wraps the application to provide global audio player state.
- * 
+ *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components
  * @returns {JSX.Element} The provider component
@@ -32,9 +34,9 @@ export const useAudioPlayer = () => {
 export function AudioPlayerProvider({ children }) {
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
-  const [podcastTitle, setPodcastTitle] = useState('');
-  const [seasonTitle, setSeasonTitle] = useState('');
-  const [episodeImage, setEpisodeImage] = useState('');
+  const [podcastTitle, setPodcastTitle] = useState("");
+  const [seasonTitle, setSeasonTitle] = useState("");
+  const [episodeImage, setEpisodeImage] = useState("");
 
   /**
    * Play an episode in the audio player
@@ -44,6 +46,12 @@ export function AudioPlayerProvider({ children }) {
    * @param {string} image - Image URL for the episode
    */
   const playEpisode = (episode, podcast, season, image) => {
+    console.log("playEpisode called with:", {
+      episode,
+      podcast,
+      season,
+      image,
+    });
     setCurrentEpisode(episode);
     setPodcastTitle(podcast);
     setSeasonTitle(season);
@@ -60,9 +68,9 @@ export function AudioPlayerProvider({ children }) {
     setTimeout(() => {
       if (!isPlayerOpen) {
         setCurrentEpisode(null);
-        setPodcastTitle('');
-        setSeasonTitle('');
-        setEpisodeImage('');
+        setPodcastTitle("");
+        setSeasonTitle("");
+        setEpisodeImage("");
       }
     }, 300); // Match the CSS animation duration
   };
